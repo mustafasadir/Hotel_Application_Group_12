@@ -1,6 +1,7 @@
 package tasks.room;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Room {
@@ -31,7 +32,6 @@ public class Room {
     public void setHasBalcony(boolean hasBalcony) {
         this.hasBalcony = hasBalcony;
     }
-
 
     public void addRoom(){
         Scanner input = new Scanner(System.in);
@@ -68,14 +68,20 @@ public class Room {
         roomNumberCount++;
         Room room = new Room(bed,price,hasBalcony);
         rooms.add(room);
-        System.out.println(room);
     }
 
+    public void viewRooms(){
+        for (Room a: rooms) {
+            System.out.println(a);
+        }
+    }
 
 
     @Override
     public String toString() {
-        return "Room " + roomNumber + " has " + numberOfBeds + (numberOfBeds > 1 ? " beds " : " bed ") + " and " + (hasBalcony ? "one balcony.\n" : "no balcony.\n")
+        return "Room " + roomNumber + " has " + numberOfBeds + (numberOfBeds > 1 ? " beds " : " bed ") + "and " + (hasBalcony ? "one balcony. " : "no balcony. ")
                 + "The price per night is: " + pricePerNight + " $";
     }
+
+
 }
