@@ -9,40 +9,53 @@ public class Room {
     private int numberOfBeds;
     private int pricePerNight;
     private boolean hasBalcony;
-    private boolean isAvaiable;
+    private boolean isAvailable;
     private ArrayList<Room> rooms = new ArrayList<>();
 
 
     public Room(int numberOfBeds, int pricePerNight, boolean hasBalcony) {
-        roomNumberCount++;
+        this.roomNumber = roomNumberCount;
         this.numberOfBeds = numberOfBeds;
         this.pricePerNight = pricePerNight;
         this.hasBalcony = hasBalcony;
-        this.roomNumber = roomNumberCount;
     }
+
+    public void setNumberOfBeds(int numberOfBeds) {
+        this.numberOfBeds = numberOfBeds;
+    }
+
+    public void setPricePerNight(int pricePerNight) {
+        this.pricePerNight = pricePerNight;
+    }
+
+    public void setHasBalcony(boolean hasBalcony) {
+        this.hasBalcony = hasBalcony;
+    }
+
 
     public void addRoom(){
         Scanner input = new Scanner(System.in);
         System.out.println("Please input amount of beds: ");
         int bed;
         bed = input.nextInt();
-        bed = numberOfBeds;
+        setNumberOfBeds(bed);
 
         System.out.println("Please input price per night: ");
         int price = input.nextInt();
-        price = pricePerNight;
-        System.out.println();
+        input.nextLine();
+        setPricePerNight(price);
 
         System.out.println("Does the room have a balcony? (yes/no): ");
         boolean inputError;
+        String answer;
         do {
-            String answer = input.nextLine();
+            answer = input.nextLine();
             if (answer.equalsIgnoreCase("yes")){
-                hasBalcony = true;
+                setHasBalcony(true);
                 inputError = false;
             }
             else if (answer.equalsIgnoreCase("no")){
-                hasBalcony = false;
+                setHasBalcony(false);
                 inputError = false;
             }
             else{
@@ -51,19 +64,18 @@ public class Room {
             }
         }while (inputError);
 
+
+        roomNumberCount++;
         Room room = new Room(bed,price,hasBalcony);
         rooms.add(room);
-        System.out.println(rooms);
+        System.out.println(room);
     }
 
-    //This method returns the ArrayList
-    public ArrayList<Room> getRooms(){
-        return rooms;
-    }
+
 
     @Override
     public String toString() {
-        return "Room " + roomNumber + " has " + numberOfBeds + (numberOfBeds > 1 ? " beds " : " bed ") + " and " + (hasBalcony ? "one balcony.\n " : "no balcony.\n ")
-                + "The price per night is: " + pricePerNight;
+        return "Room " + roomNumber + " has " + numberOfBeds + (numberOfBeds > 1 ? " beds " : " bed ") + " and " + (hasBalcony ? "one balcony.\n" : "no balcony.\n")
+                + "The price per night is: " + pricePerNight + " $";
     }
 }
