@@ -7,7 +7,6 @@ public class RoomTest {
         ArrayList<Room> roomArrayList;
 
         Room testRoom = new Room(1,1,true);
-
         testRoom.addRoom();
         testRoom.viewRooms();
 
