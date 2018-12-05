@@ -9,13 +9,7 @@ public class RoomTest {
         ArrayList<Room> roomArrayList;
 
         Room testRoom = new Room(1,1,true);
-        Customer testC = new Customer("","","","");
-        testC.addCustomer();
-        testC.viewCustomers();
-        testC.editCustomer();
-        testC.viewCustomers();
-        testC.removeCustomer();
-        testC.viewCustomers();
+
         testRoom.addRoom();
         testRoom.viewRooms();
 
