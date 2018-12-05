@@ -11,6 +11,7 @@ public class Room {
     private boolean hasBalcony;
     private boolean isAvailable;
     private ArrayList<Room> rooms = new ArrayList<>();
+    private ArrayList<Room> availableRooms = new ArrayList<>();
 
 
     public Room(int numberOfBeds, int pricePerNight, boolean hasBalcony) {
