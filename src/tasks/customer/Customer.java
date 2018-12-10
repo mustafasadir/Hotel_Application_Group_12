@@ -1,4 +1,7 @@
 package tasks.customer;
+
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -61,7 +64,7 @@ public class Customer {
         System.out.println("Please enter customer's address: ");
         String address = input.nextLine();
         while (address.length() < 5 || address.length() > 25){
-            System.out.println("Please enter valid address.(Address should contain at least 10 characters and max 15 characters!)");
+            System.out.println("Please enter valid address.(Address should contain max 50 characters!)");
             address = input.nextLine();
         }
         setAddress(address);
@@ -101,14 +104,33 @@ public class Customer {
         String phoneFormat = "[0-9]*";
 
 
-            System.out.println("Which customer information would you like to edit?");
-            String customer = input.nextLine();
+        Scanner input = new Scanner(System.in);
+        boolean inputError;
+        int  customerNbr = 0;
 
+        System.out.println("Which customer information do you want to change? (Input customer number)");
 
-            while (customer.equals("") || !customer.matches(phoneFormat) ){
-                System.out.println("Please input positive real number!");
-                customer = input.nextLine();
+        Customer customer;
+        do {
+            try {
+                customerNbr = input.nextInt();
+                customer = customers.get(customerNbr-1);
+                System.out.println(customer);
+                inputError = false;
             }
+            catch (InputMismatchException e){
+                System.out.println("Please input a positive real number!");
+                input.nextLine();
+                inputError = true;
+            }
+            catch (IndexOutOfBoundsException e){
+                input.nextLine();
+                System.out.println("Customer does not exist, try another number");
+                inputError = true;
+            }
+        }while (inputError);
+
+        customer = customers.get(customerNbr-1);
 
         System.out.println("Which of the below do you want to change?");
         System.out.println("1) Social Security Number");
@@ -126,6 +148,7 @@ public class Customer {
             System.out.println("Please input a positive real number! (1-4)");
             choice = input.nextInt();
         }
+        input.nextLine();
 
         if (choice == 1 ){
             System.out.println("Please enter customer's social security number(yyyymmdd-xxxx)");
@@ -135,29 +158,30 @@ public class Customer {
                 System.out.println("Please enter valid social security number(yyyymmdd-xxxx))!");
                 personNummer = input.nextLine();
             }
-            customers.get(Integer.valueOf(customer)-1).setSsn(personNummer);
+            customers.get(customerNbr-1).setSsn(personNummer);
         }
 
         else if (choice == 2){
             System.out.println("Please enter customer's full name:(firstName lastName) ");
             String name = input.nextLine();
-            input.nextLine();
+
             while (!name.matches(nameFormat)){
                 System.out.println("Please enter valid name!");
                 name = input.nextLine();
             }
-            customers.get(Integer.valueOf(customer)-1).setName(name);
+
+            customers.get(customerNbr-1).setName(name);
 
         }
         else if (choice == 3){
             System.out.println("Please enter customer's address: ");
             String address = input.nextLine();
             input.nextLine();
-            while (address.length() < 5 || address.length() > 25){
-                System.out.println("Please enter valid address.(Address should contain at least 10 characters and max 15 characters!)");
+            while (address.length() > 50){
+                System.out.println("Please enter valid address.(Address should contain max 50 characters!)");
                 address = input.nextLine();
             }
-            customers.get(Integer.valueOf(customer)-1).setAddress(address);
+            customers.get(customerNbr-1).setAddress(address);
         }
         else if (choice == 4){
             System.out.println("Please enter customer's telephone number:(0700123456) ");
@@ -167,7 +191,7 @@ public class Customer {
                 System.out.println("Please enter valid phone number.(Should contain 10 digits!)");
                 phoneNumber = input.nextLine();
             }
-            customers.get(Integer.valueOf(customer)-1).setPhoneNumber(phoneNumber);
+            customers.get(customerNbr-1).setPhoneNumber(phoneNumber);
         }
 
 
