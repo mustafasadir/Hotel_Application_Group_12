@@ -1,5 +1,8 @@
 package tasks;
 
+import tasks.customer.Customer;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -7,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         Main myApp = new Main();
         myApp.showEmployeeMenu();
-
+        ArrayList<Customer> customer = new ArrayList<>();
     }
 
     public void showEmployeeMenu(){
@@ -67,6 +70,7 @@ public class Main {
     }
 
     public void showCustomerOptions(){
+        Customer myCustomer = new Customer("","","","");
         Scanner input = new Scanner(System.in);
         System.out.println("--- CUSTOMER OPTIONS ---");
         System.out.println("1) View all customers");
@@ -88,7 +92,7 @@ public class Main {
         choice = input.nextInt();
 
         //Checks if input is inside range(1-5).
-        while (choice <=0 || choice > 5){
+        while (choice <=1 || choice > 5){
             System.out.println("Please input a positive real number! (1-5)");
             choice = input.nextInt();
         }
@@ -97,17 +101,41 @@ public class Main {
             System.out.println("1) View arrived customers (view checked in customers)");
             System.out.println("2) View not arrived customers (view customers that have not checked in)");
             System.out.println("3) Return to customer menu");
+            int arrived = input.nextInt();
+
+            if (arrived == 1){
+
+            }
+            else if (arrived == 2){
+
+            }
+            else if (arrived == 3){
+
+            }
         }
         else if (choice == 2){
             System.out.println("1) View information");
             System.out.println("2) Edit information");
             System.out.println("3) Return to customer menu");
+            int view = input.nextInt();
+            if (view == 1 ){
+                myCustomer.viewCustomers();
+            }
+            else if (view == 2){
+                myCustomer.editCustomer();
+            }
+            else if (view == 3){
+
+            }
+
         }
         else if (choice == 3){
             // Code to add customer
+            myCustomer.addCustomer();
         }
         else if (choice == 4){
             //Code to remove customer
+            myCustomer.removeCustomer();
         }
         else if (choice == 5){
             //Code to return to CUSTOMER MENU
