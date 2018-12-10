@@ -60,17 +60,17 @@ public class Customer {
 
         System.out.println("Please enter customer's address: ");
         String address = input.nextLine();
-        while (address.length() < 10 || address.length() > 15){
+        while (address.length() < 5 || address.length() > 25){
             System.out.println("Please enter valid address.(Address should contain at least 10 characters and max 15 characters!)");
             address = input.nextLine();
         }
         setAddress(address);
 
-        System.out.println("Please enter customer's telephone number:(07001234567) ");
+        System.out.println("Please enter customer's telephone number:(0700123456) ");
         String phoneNumber = input.nextLine();
         String phoneFormat = "[0-9]*";
-        while (!phoneNumber.matches(phoneFormat) || phoneNumber.length() < 11 || phoneNumber.length() > 11){
-            System.out.println("Please enter valid phone number.(Should contain 11 digits!)");
+        while (!phoneNumber.matches(phoneFormat) || phoneNumber.length() < 10 || phoneNumber.length() > 10){
+            System.out.println("Please enter valid phone number.(Should contain 10 digits!)");
             phoneNumber = input.nextLine();
         }
         setPhoneNumber(phoneNumber);
@@ -96,26 +96,79 @@ public class Customer {
     }
 
     public void editCustomer(){
+        String ssnFormat = "[0-9]*-[0-9]*";
+        String nameFormat = "[a-zA-Z]* [a-zA-Z]*";
+        String phoneFormat = "[0-9]*";
 
-        System.out.println("which customer to edit");
-        int editCustomerr = input.nextInt();
 
-        System.out.println("new ssn");
-        input.nextLine();
-        String newSSN = input.nextLine();
-        customers.get(editCustomerr-1).setSsn(newSSN);
+            System.out.println("Which customer information would you like to edit?");
+            String customer = input.nextLine();
 
-        System.out.println("new name");
-        String newName = input.nextLine();
-        customers.get(editCustomerr-1).setName(newName);
 
-        System.out.println("new address");
-        String newAddress = input.nextLine();
-        customers.get(editCustomerr-1).setAddress(newAddress);
+            while (customer.equals("") || !customer.matches(phoneFormat) ){
+                System.out.println("Please input positive real number!");
+                customer = input.nextLine();
+            }
 
-        System.out.println("new phone");
-        String newPhone = input.nextLine();
-        customers.get(editCustomerr-1).setPhoneNumber(newPhone);
+        System.out.println("Which of the below do you want to change?");
+        System.out.println("1) Social Security Number");
+        System.out.println("2) Name");
+        System.out.println("3) Address");
+        System.out.println("4) Telephone number");
+        while (!input.hasNextInt()){
+            input.next();
+            System.out.println("Please input a positive real number! (1-4)");
+        }
+        int choice;
+        choice = input.nextInt();
+
+        while (choice <=0 || choice > 4){
+            System.out.println("Please input a positive real number! (1-4)");
+            choice = input.nextInt();
+        }
+
+        if (choice == 1 ){
+            System.out.println("Please enter customer's social security number(yyyymmdd-xxxx)");
+            String personNummer = input.nextLine();
+            input.nextLine();
+            while (personNummer.equals("") || !personNummer.matches(ssnFormat) || personNummer.length() < 13 || personNummer.length() > 13){
+                System.out.println("Please enter valid social security number(yyyymmdd-xxxx))!");
+                personNummer = input.nextLine();
+            }
+            customers.get(Integer.valueOf(customer)-1).setSsn(personNummer);
+        }
+
+        else if (choice == 2){
+            System.out.println("Please enter customer's full name:(firstName lastName) ");
+            String name = input.nextLine();
+            input.nextLine();
+            while (!name.matches(nameFormat)){
+                System.out.println("Please enter valid name!");
+                name = input.nextLine();
+            }
+            customers.get(Integer.valueOf(customer)-1).setName(name);
+
+        }
+        else if (choice == 3){
+            System.out.println("Please enter customer's address: ");
+            String address = input.nextLine();
+            input.nextLine();
+            while (address.length() < 5 || address.length() > 25){
+                System.out.println("Please enter valid address.(Address should contain at least 10 characters and max 15 characters!)");
+                address = input.nextLine();
+            }
+            customers.get(Integer.valueOf(customer)-1).setAddress(address);
+        }
+        else if (choice == 4){
+            System.out.println("Please enter customer's telephone number:(0700123456) ");
+            String phoneNumber = input.nextLine();
+            input.nextLine();
+            while (!phoneNumber.matches(phoneFormat) || phoneNumber.length() < 10 || phoneNumber.length() > 10){
+                System.out.println("Please enter valid phone number.(Should contain 10 digits!)");
+                phoneNumber = input.nextLine();
+            }
+            customers.get(Integer.valueOf(customer)-1).setPhoneNumber(phoneNumber);
+        }
 
 
     }
