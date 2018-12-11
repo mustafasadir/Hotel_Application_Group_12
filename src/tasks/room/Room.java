@@ -176,8 +176,13 @@ public class Room {
     }
 
     public void viewRooms(){
-        for (Room a: rooms) {
-            System.out.println(a);
+        if (rooms.isEmpty()){
+            System.out.println("No room in existence!");
+        }
+        else{
+            for (Room a: rooms) {
+                System.out.println(a);
+            }
         }
     }
 
