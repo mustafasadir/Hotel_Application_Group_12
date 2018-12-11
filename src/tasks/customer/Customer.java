@@ -176,7 +176,7 @@ public class Customer {
         else if (choice == 3){
             System.out.println("Please enter customer's address: ");
             String address = input.nextLine();
-            input.nextLine();
+            //input.nextLine();
             while (address.length() > 50){
                 System.out.println("Please enter valid address.(Address should contain max 50 characters!)");
                 address = input.nextLine();
@@ -186,7 +186,7 @@ public class Customer {
         else if (choice == 4){
             System.out.println("Please enter customer's telephone number:(0700123456) ");
             String phoneNumber = input.nextLine();
-            input.nextLine();
+
             while (!phoneNumber.matches(phoneFormat) || phoneNumber.length() < 10 || phoneNumber.length() > 10){
                 System.out.println("Please enter valid phone number.(Should contain 10 digits!)");
                 phoneNumber = input.nextLine();
@@ -205,6 +205,34 @@ public class Customer {
         for (Customer x: customers){
             System.out.println(!x.arrived);
         }
+    }
+
+    public void viewACustomer(){
+        System.out.println("Which customer would you like to look for ?");
+        Customer  customer ;
+        boolean inputError ;
+        int aCustomer  = 0;
+
+        do {
+            try {
+                aCustomer = input.nextInt();
+                customer = customers.get(aCustomer-1);
+                System.out.println(customer);
+                inputError = false;
+            }
+            catch (InputMismatchException e){
+                System.out.println("Please input a positive real number!");
+                input.nextLine();
+                inputError = true;
+            }
+            catch (IndexOutOfBoundsException e){
+                input.nextLine();
+                System.out.println("Customer does not exist, try another number");
+                inputError = true;
+            }
+        }while (inputError);
+
+        customer = customers.get(aCustomer-1);
     }
 
     @Override

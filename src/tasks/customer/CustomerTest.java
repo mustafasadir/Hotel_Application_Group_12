@@ -8,8 +8,9 @@ public class CustomerTest {
         testC.viewCustomers();
         testC.editCustomer();
         testC.viewCustomers();
-        testC.removeCustomer();
-        testC.viewCustomers();
+       // testC.removeCustomer();
+      //  testC.viewCustomers();
+        testC.viewACustomer();
         //testC.viewArrivedCustomers();
         //testC.viewArrivedCustomers();
         //Arrived methods not used yet.
