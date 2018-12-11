@@ -143,6 +143,38 @@ public class Room {
         rooms.add(room);
     }
 
+    public void removeRoom(){
+        Scanner input = new Scanner(System.in);
+        boolean inputError;
+        int roomNbr = 0;
+
+        System.out.println("Which room do you want to remove? (Input room number)");
+
+        Room room;
+        do {
+            try {
+                roomNbr = input.nextInt();
+                room = rooms.get(roomNbr-1);
+                System.out.println(room);
+                inputError = false;
+            }
+            catch (InputMismatchException e){
+                System.out.println("Please input a positive real number!");
+                input.nextLine();
+                inputError = true;
+            }
+            catch (IndexOutOfBoundsException e){
+                input.nextLine();
+                System.out.println("Room does not exist, try another number");
+                inputError = true;
+            }
+        }while (inputError);
+
+        room = rooms.get(roomNbr-1);
+        rooms.remove(room);
+        System.out.println("Room successfully removed.");
+    }
+
     public void viewRooms(){
         for (Room a: rooms) {
             System.out.println(a);

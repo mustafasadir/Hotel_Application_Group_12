@@ -1,8 +1,10 @@
 package tasks;
 
 import tasks.customer.Customer;
+import tasks.room.Room;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -145,12 +147,57 @@ public class Main {
     }
 
     public void showRoomOptions(){
-        System.out.println("--- ROOM OPTIONS ---");
-        System.out.println("1) View all rooms");
-        System.out.println("2) View available rooms");
-        System.out.println("3) Add room");
-        System.out.println("4) Edit Room");
-        System.out.println("5) Remove room");
+        boolean inputError;
+        int choice =0;
+        do {
+
+            Scanner input = new Scanner(System.in);
+            System.out.println("--- ROOM OPTIONS ---");
+            System.out.println("1) View all rooms");
+            System.out.println("2) View available rooms");
+            System.out.println("3) Add room");
+            System.out.println("4) Edit Room");
+            System.out.println("5) Remove room");
+            System.out.println("6) Exit room options");
+
+            System.out.println();
+            System.out.println("Please select an operation (1-6) :");
+
+            Room myRoom = new Room(1,1,true);
+
+            do {
+                try {
+                    choice = input.nextInt();
+                    inputError = false;
+                }
+                catch (InputMismatchException e){
+                    System.out.println("Please input a positive real number! (1-5)");
+                    input.nextLine();
+                    inputError = true;
+                }
+            }while (inputError);
+
+            while (choice <=0 || choice > 6){
+                System.out.println("Please input a positive real number! (1-6)");
+                choice = input.nextInt();
+            }
+
+            if (choice == 1){
+                myRoom.viewRooms();
+            }
+            else if (choice == 2){
+                myRoom.viewAvailableRooms();
+            }
+            else if (choice == 3){
+                myRoom.addRoom();
+            }
+            else if(choice == 4){
+                myRoom.editRoomInfo();
+            }
+            else if (choice == 5){
+                myRoom.removeRoom();
+            }
+        }while (choice != 6);
     }
 
     public void checkIn(){

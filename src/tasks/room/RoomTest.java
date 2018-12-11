@@ -7,6 +7,7 @@ public class RoomTest {
 
         testRoom.addRoom();
         testRoom.viewRooms();
+        testRoom.removeRoom();
 
         testRoom.editRoomInfo();
         testRoom.viewAvailableRooms();
