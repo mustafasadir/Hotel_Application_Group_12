@@ -6,6 +6,7 @@ public class RoomTest {
         Room testRoom = new Room(1,1,true);
 
         testRoom.addRoom();
+        testRoom.addRoom();
         testRoom.viewRooms();
 
         testRoom.editRoomInfo();
