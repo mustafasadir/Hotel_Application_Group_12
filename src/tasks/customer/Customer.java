@@ -14,6 +14,7 @@ public class Customer {
     private String name ;
     private String address ;
     private String phoneNumber;
+    private Boolean arrived;
     private ArrayList<Customer> customers = new ArrayList<>();
 
 
@@ -32,6 +33,8 @@ public class Customer {
     public void setAddress(String address) { this.address = address; }
 
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+
+    public void setArrived(Boolean arrived) {this.arrived = arrived; }
 
     public String getSsn() {
         return ssn;
@@ -192,6 +195,16 @@ public class Customer {
         }
 
 
+    }
+    public void viewArrivedCustomers(){
+        for (Customer x: customers){
+            System.out.println(x.arrived);
+        }
+    }
+    public void viewNotArrivedCustomers(){
+        for (Customer x: customers){
+            System.out.println(!x.arrived);
+        }
     }
 
     @Override
