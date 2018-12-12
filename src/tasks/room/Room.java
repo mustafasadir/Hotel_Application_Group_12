@@ -42,7 +42,11 @@ public class Room {
         return isAvailable;
     }
 
-    public void addRoom(){
+    public ArrayList<Room> getRooms() {
+        return rooms;
+    }
+
+    public Room addRoom(){
         Scanner input = new Scanner(System.in);
         boolean inputError;
 
@@ -141,9 +145,10 @@ public class Room {
         roomNumberCount++;
         Room room = new Room(bed,price,hasBalcony);
         rooms.add(room);
+        return room;
     }
 
-    public void removeRoom(){
+    public void removeRoom(ArrayList<Room> rooms){
         Scanner input = new Scanner(System.in);
         boolean inputError;
         int roomNbr = 0;
@@ -155,7 +160,7 @@ public class Room {
             try {
                 roomNbr = input.nextInt();
                 room = rooms.get(roomNbr-1);
-                System.out.println(room);
+                System.out.println("Chosen room ------> " + room);
                 inputError = false;
             }
             catch (InputMismatchException e){
@@ -175,7 +180,7 @@ public class Room {
         System.out.println("Room successfully removed.");
     }
 
-    public void viewRooms(){
+    public void viewRooms(ArrayList<Room> rooms){
         if (rooms.isEmpty()){
             System.out.println("No room in existence!");
         }
@@ -186,7 +191,7 @@ public class Room {
         }
     }
 
-    public void viewAvailableRooms(){
+    public void viewAvailableRooms(ArrayList<Room> rooms){
         for (Room room : rooms) {
             if (room.getIsAvailable()){
                 System.out.println(room);
@@ -194,7 +199,7 @@ public class Room {
         }
     }
 
-    public void editRoomInfo(){
+    public void editRoomInfo(ArrayList<Room> rooms){
         Scanner input = new Scanner(System.in);
         boolean inputError;
         int roomNbr = 0;
@@ -305,7 +310,9 @@ public class Room {
         }
         else {
             System.out.println("Is room available (yes/no)");
+            input.nextLine();
             String answer;
+
             do {
                 answer = input.nextLine();
                 if (answer.equalsIgnoreCase("yes")){

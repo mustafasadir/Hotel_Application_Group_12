@@ -6,11 +6,10 @@ public class RoomTest {
         Room testRoom = new Room(1,1,true);
 
         testRoom.addRoom();
-        testRoom.viewRooms();
-        testRoom.removeRoom();
 
-        testRoom.editRoomInfo();
-        testRoom.viewAvailableRooms();
+
+
+
 
     }
 }
