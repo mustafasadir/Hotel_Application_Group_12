@@ -207,6 +207,7 @@ public class Customer {
         }
     }
 
+
     public void viewACustomer(){
         System.out.println("Which customer would you like to look for ?");
         Customer  customer ;
@@ -233,7 +234,9 @@ public class Customer {
         }while (inputError);
 
         customer = customers.get(aCustomer-1);
+        
     }
+
 
     @Override
     public String toString() {

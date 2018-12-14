@@ -6,10 +6,8 @@ public class CustomerTest {
         testC.addCustomer();
         testC.addCustomer();
         testC.viewCustomers();
-        testC.editCustomer();
-        testC.viewCustomers();
-       // testC.removeCustomer();
-      //  testC.viewCustomers();
+        testC.removeCustomer();
+      testC.viewCustomers();
         testC.viewACustomer();
         //testC.viewArrivedCustomers();
         //testC.viewArrivedCustomers();

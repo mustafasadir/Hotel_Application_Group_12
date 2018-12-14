@@ -14,12 +14,13 @@ public class Room {
     private boolean isAvailable;
     private ArrayList<Room> rooms = new ArrayList<>(); // all the created rooms
 
-    public Room(int numberOfBeds, int pricePerNight, boolean hasBalcony) {
+    public Room(int numberOfBeds, int pricePerNight, boolean hasBalcony ) {
         this.roomNumber = roomNumberCount;
         this.numberOfBeds = numberOfBeds;
         this.pricePerNight = pricePerNight;
         this.hasBalcony = hasBalcony;
         isAvailable = true;
+
     }
 
     public void setNumberOfBeds(int numberOfBeds) {
@@ -40,6 +41,10 @@ public class Room {
 
     public boolean getIsAvailable(){
         return isAvailable;
+    }
+
+    public int getRoomNumber() {
+        return roomNumber;
     }
 
     public void addRoom(){
