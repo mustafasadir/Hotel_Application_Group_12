@@ -9,10 +9,15 @@ import java.util.Scanner;
 
 public class Main {
 
+    private ArrayList<Room> rooms = new ArrayList<>();
+
     public static void main(String[] args) {
         Main myApp = new Main();
-        myApp.showEmployeeMenu();
         ArrayList<Customer> customer = new ArrayList<>();
+        Room myRoom = new Room(1,1,false);
+
+        myApp.showEmployeeMenu();
+
     }
 
     public void showEmployeeMenu(){
@@ -183,19 +188,23 @@ public class Main {
             }
 
             if (choice == 1){
-                myRoom.viewRooms();
+                myRoom.viewRooms(rooms);
             }
             else if (choice == 2){
-                myRoom.viewAvailableRooms();
+                myRoom.viewAvailableRooms(rooms);
             }
             else if (choice == 3){
-                myRoom.addRoom();
+                Room room = myRoom.addRoom();
+                rooms.add(room);
             }
             else if(choice == 4){
-                myRoom.editRoomInfo();
+                myRoom.editRoomInfo(rooms);
             }
             else if (choice == 5){
-                myRoom.removeRoom();
+                myRoom.removeRoom(rooms);
+            }
+            else{
+                showEmployeeMenu();
             }
         }while (choice != 6);
     }

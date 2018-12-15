@@ -234,7 +234,7 @@ public class Customer {
         }while (inputError);
 
         customer = customers.get(aCustomer-1);
-        
+
     }
 
 
