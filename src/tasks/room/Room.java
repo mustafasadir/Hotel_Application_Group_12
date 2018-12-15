@@ -173,24 +173,24 @@ public class Room {
         Scanner input = new Scanner(System.in);
         boolean inputError;
         int roomNbr = 0;
+        String readRoomNbr;
 
         System.out.println("Which room do you want to remove? (Input room number)");
 
         Room room;
         do {
             try {
-                roomNbr = input.nextInt();
+                readRoomNbr = input.nextLine();
+                roomNbr = Integer.valueOf(readRoomNbr);
                 room = rooms.get(roomNbr-1);
                 System.out.println("Chosen room ------> " + room);
                 inputError = false;
             }
-            catch (InputMismatchException e){
+            catch (NumberFormatException e){
                 System.out.println("Please input a positive real number!");
-                input.nextLine();
                 inputError = true;
             }
             catch (IndexOutOfBoundsException e){
-                input.nextLine();
                 System.out.println("Room does not exist, try another number");
                 inputError = true;
             }
