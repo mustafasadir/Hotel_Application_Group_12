@@ -65,6 +65,14 @@ public class Main {
 
     }
 
+    public void showCustomerMenu(){
+        System.out.println("--- MAIN MENU ---");
+        System.out.println("1) Make a booking");
+        System.out.println("2) Check availability");
+        System.out.println("3) View booking history");
+        System.out.println("4) Edit Profile");
+    }
+
     public void showBookingOptions(){
         System.out.println("---- BOOKING OPTIONS ----");
         System.out.println("1) Create booking");
