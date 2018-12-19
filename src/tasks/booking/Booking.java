@@ -2,7 +2,8 @@ package src.tasks.booking;
 
 import tasks.customer.Customer;
 
-import javax.naming.Name;
+import java.util.ArrayList;
+
 import java.util.Scanner;
 
 public class Booking {
@@ -10,6 +11,7 @@ public class Booking {
     private int totalPrice;
     private String checkInDate;
     private String checkOutDate;
+    private ArrayList<Booking> myBookings = new  ArrayList<Booking>();
 
     public Booking()
     {
@@ -24,6 +26,7 @@ public class Booking {
 
     }
     public void makeABooking() {
+
         Scanner input = new Scanner(System.in);
         Customer myCustomer = new Customer("920404-1312","Alex","Solverborgsgatan 24A","0700224332");
         System.out.println("Please input your ssn: ");
@@ -32,7 +35,7 @@ public class Booking {
         while (!ssn.equals(myCustomer.getSsn())){
             System.out.println("Please input your ssn");
             ssn = input.nextLine();
-            System.out.println("Available rooms are: " + );
+            System.out.println("Available rooms are: " );
 
         }
 
