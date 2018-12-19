@@ -13,11 +13,9 @@ public class Booking {
     private int totalPrice;
     private String checkInDate;
     private String checkOutDate;
-<<<<<<< HEAD
-    private ArrayList<Booking> myBookings = new  ArrayList<Booking>();
-=======
+
     private ArrayList<Booking> bookings = new ArrayList<>();
->>>>>>> 58d11ab4ba78aa5e281d90308abc94f9db783dab
+
 
     public Booking()
     {
