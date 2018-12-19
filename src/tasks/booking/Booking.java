@@ -1,4 +1,4 @@
-package src.tasks.booking;
+package tasks.booking;
 
 import tasks.customer.Customer;
 
@@ -32,7 +32,7 @@ public class Booking {
         while (!ssn.equals(myCustomer.getSsn())){
             System.out.println("Please input your ssn");
             ssn = input.nextLine();
-            System.out.println("Available rooms are: " + );
+            System.out.println("Available rooms are: "  );
 
         }
 
