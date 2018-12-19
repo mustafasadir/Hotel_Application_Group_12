@@ -18,7 +18,9 @@ public class Main {
         Main myApp = new Main();
 
         Room myRoom = new Room(1,1,false);
-        Customer myCustomer = new Customer("12345678-1234","Jane Doe","Kristianstad", "0723049586");
+
+        Customer myCustomer = new Customer("12345678-1234","Jane Doe","Kristianstad",
+                "0723049586");
 
         EmployeeUser employeeUser = new EmployeeUser("mustafa","19981998");
         CustomerUser customerUser = new CustomerUser("kalle","12345678");
