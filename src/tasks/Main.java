@@ -1,6 +1,9 @@
 package tasks;
 
 import tasks.customer.Customer;
+import tasks.login.CustomerUser;
+import tasks.login.EmployeeUser;
+import tasks.login.Login;
 import tasks.room.Room;
 
 import java.util.ArrayList;
@@ -15,10 +18,22 @@ public class Main {
         Main myApp = new Main();
 
         Room myRoom = new Room(1,1,false);
+
         Customer myCustomer = new Customer("12345678-1234","Jane Doe","Kristianstad",
                 "0723049586");
 
-        myApp.showEmployeeMenu();
+        EmployeeUser employeeUser = new EmployeeUser("mustafa","19981998");
+        CustomerUser customerUser = new CustomerUser("kalle","12345678");
+        Login login = new Login("haha","haha");
+
+        boolean menuChoice = login.showLoginForm();
+
+        if (menuChoice){
+            myApp.showEmployeeMenu();
+        }
+        else{
+            myApp.showCustomerMenu();
+        }
 
     }
 
@@ -65,6 +80,14 @@ public class Main {
         }
 
 
+    }
+
+    public void showCustomerMenu(){
+        System.out.println("--- MAIN MENU ---");
+        System.out.println("1) Make a booking");
+        System.out.println("2) Check availability");
+        System.out.println("3) View booking history");
+        System.out.println("4) Edit Profile");
     }
 
     public void showBookingOptions(){
