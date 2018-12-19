@@ -40,7 +40,11 @@ public class Customer {
         return ssn;
     }
 
-    public void addCustomer(){
+    public ArrayList<Customer> getCustomers() {
+        return customers;
+    }
+
+    public Customer addCustomer(){
         System.out.println("Please enter customer's social security number(yyyymmdd-xxxx)");
         String personNummer = input.nextLine();
         String ssnFormat = "[0-9]*-[0-9]*";
@@ -81,15 +85,16 @@ public class Customer {
         customerCount++;
         Customer customer = new Customer(personNummer,name,address,phoneNumber);
         customers.add(customer);
+        return customer ;
 
    }
-    public void viewCustomers(){
+    public void viewCustomers(ArrayList<Customer> customers){
         for (Customer x: customers) {
             System.out.println(x);
         }
     }
 
-    public void removeCustomer(){
+    public void removeCustomer(ArrayList<Customer>customers){
 
         System.out.println("which customer to remove");
         int cus = input.nextInt();
@@ -98,7 +103,7 @@ public class Customer {
 
     }
 
-    public void editCustomer(){
+    public void editCustomer(ArrayList<Customer> customers){
         String ssnFormat = "[0-9]*-[0-9]*";
         String nameFormat = "[a-zA-Z]* [a-zA-Z]*";
         String phoneFormat = "[0-9]*";
@@ -196,18 +201,21 @@ public class Customer {
 
 
     }
-    public void viewArrivedCustomers(){
+
+    public void viewArrivedCustomers(ArrayList<Customer> customers){
         for (Customer x: customers){
             System.out.println(x.arrived);
         }
     }
+    /*
     public void viewNotArrivedCustomers(){
         for (Customer x: customers){
             System.out.println(!x.arrived);
         }
     }
+*/
 
-    public void viewACustomer(){
+    public void viewACustomer(ArrayList<Customer> customers){
         System.out.println("Which customer would you like to look for ?");
         Customer  customer ;
         boolean inputError ;
@@ -233,7 +241,9 @@ public class Customer {
         }while (inputError);
 
         customer = customers.get(aCustomer-1);
+
     }
+
 
     @Override
     public String toString() {

@@ -1,6 +1,9 @@
 package tasks;
 
 import tasks.customer.Customer;
+import tasks.login.CustomerUser;
+import tasks.login.EmployeeUser;
+import tasks.login.Login;
 import tasks.room.Room;
 
 import java.util.ArrayList;
@@ -10,13 +13,25 @@ import java.util.Scanner;
 public class Main {
 
     private ArrayList<Room> rooms = new ArrayList<>();
-
+    private ArrayList<Customer> customers = new ArrayList<>();
     public static void main(String[] args) {
         Main myApp = new Main();
-        ArrayList<Customer> customer = new ArrayList<>();
-        Room myRoom = new Room(1,1,false);
 
-        myApp.showEmployeeMenu();
+        Room myRoom = new Room(1,1,false);
+        Customer myCustomer = new Customer("12345678-1234","Jane Doe","Kristianstad", "0723049586");
+
+        EmployeeUser employeeUser = new EmployeeUser("mustafa","19981998");
+        CustomerUser customerUser = new CustomerUser("kalle","12345678");
+        Login login = new Login("haha","haha");
+
+        boolean menuChoice = login.showLoginForm();
+
+        if (menuChoice){
+            myApp.showEmployeeMenu();
+        }
+        else{
+            myApp.showCustomerMenu();
+        }
 
     }
 
@@ -85,76 +100,83 @@ public class Main {
     }
 
     public void showCustomerOptions(){
-        Customer myCustomer = new Customer("","","","");
-        Scanner input = new Scanner(System.in);
-        System.out.println("--- CUSTOMER OPTIONS ---");
-        System.out.println("1) View all customers");
-        System.out.println("2) Search customer");
-        System.out.println("3) Add customer");
-        System.out.println("4) Remove customer");
-        System.out.println("5) Exit customer menu");
+        int choice = 0;
+        boolean inputError;
+        do {
+            Customer myCustomer = new Customer("","","","");
+            Scanner input = new Scanner(System.in);
+            System.out.println("--- CUSTOMER OPTIONS ---");
+            System.out.println("1) View all customers");
+            System.out.println("2) Search a customer");
+            System.out.println("3) Add a customer");
+            System.out.println("4) Remove a customer");
+            System.out.println("5) Edit customer's information");
+            System.out.println("6) Exit customer menu");
 
-        System.out.println("Please select an operation (1-5):");
+            System.out.println("Please select an operation (1-6):");
+            //checks if input is an integer.
+            do {
+                try {
+                    choice = input.nextInt();
+                    inputError = false;
+                }
+                catch (InputMismatchException e){
+                    System.out.println("Please input a positive real number! (1-6)");
+                    input.nextLine();
+                    inputError = true;
+                }
+            }while (inputError);
 
-        //Checks if input is integer.
-        while (!input.hasNextInt()) {
-            input.next();
-            System.out.println("Please input a positive real number! (1-5)");
-        }
 
-        //Creates and initializes choice number.
-        int choice;
-        choice = input.nextInt();
-
-        //Checks if input is inside range(1-5).
-        while (choice <=1 || choice > 5){
-            System.out.println("Please input a positive real number! (1-5)");
-            choice = input.nextInt();
-        }
-
-        if (choice == 1){
-            System.out.println("1) View arrived customers (view checked in customers)");
-            System.out.println("2) View not arrived customers (view customers that have not checked in)");
-            System.out.println("3) Return to customer menu");
-            int arrived = input.nextInt();
-
-            if (arrived == 1){
-
-            }
-            else if (arrived == 2){
-
-            }
-            else if (arrived == 3){
-
-            }
-        }
-        else if (choice == 2){
-            System.out.println("1) View information");
-            System.out.println("2) Edit information");
-            System.out.println("3) Return to customer menu");
-            int view = input.nextInt();
-            if (view == 1 ){
-                myCustomer.viewCustomers();
-            }
-            else if (view == 2){
-                myCustomer.editCustomer();
-            }
-            else if (view == 3){
-
+            //Checks if input is inside range(1-6).
+            while (choice <1 || choice > 6){
+                System.out.println("Please input a positive real number! (1-6)");
+                choice = input.nextInt();
             }
 
-        }
-        else if (choice == 3){
-            // Code to add customer
-            myCustomer.addCustomer();
-        }
-        else if (choice == 4){
-            //Code to remove customer
-            myCustomer.removeCustomer();
-        }
-        else if (choice == 5){
-            //Code to return to CUSTOMER MENU
-        }
+            if (choice == 1){
+                System.out.println("1) View arrived customers (view checked in customers)");
+                System.out.println("2) View all customers");
+                System.out.println("2) Return to customer menu");
+                int arrived = input.nextInt();
+                 input.nextLine();
+                if (arrived == 1){
+                myCustomer.viewArrivedCustomers(customers);
+                }
+                else if (arrived == 2){
+                    myCustomer.viewCustomers(customers);
+                }
+                else if (arrived == 3){
+                    showCustomerOptions();
+                }
+            }
+            else if (choice == 2){
+
+                    myCustomer.viewACustomer(customers);
+
+            }
+            else if (choice == 3){
+
+                    Customer customer = myCustomer.addCustomer();
+                    customers.add(customer);
+
+            }
+            else if (choice == 4){
+
+                    myCustomer.removeCustomer(customers);
+
+            }
+
+            else  if (choice == 5){
+
+                myCustomer.editCustomer(customers);
+            }
+            else {
+                //Code to return to CUSTOMER MENU
+                showEmployeeMenu();
+            }
+        } while (choice != 6);
+
 
 
     }

@@ -3,7 +3,14 @@ package tasks.login;
 public class LoginTest {
 
     public static void main(String[] args) {
-        Login myLogin = new Login("mustafa","19981998");
+        EmployeeUser employeeUser = new EmployeeUser("mustafa","19981998");
+        CustomerUser customerUser = new CustomerUser("Kalle","12345678");
+        Login login = new Login("haha","haha");
+
+        login.showLoginForm();
+
+
+
 
 
 
