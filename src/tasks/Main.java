@@ -1,5 +1,6 @@
 package tasks;
 
+import tasks.booking.Booking;
 import tasks.customer.Customer;
 import tasks.login.CustomerUser;
 import tasks.login.EmployeeUser;
@@ -18,6 +19,7 @@ public class Main {
 
     Customer myCustomer = new Customer("12345678-1234","Jane Doe","Kristianstad",
             "0723049586");
+    Booking mybooking = new Booking();
     public static void main(String[] args) {
         Main myApp = new Main();
 
@@ -111,6 +113,7 @@ public class Main {
             System.out.println("2) Check availability");
             System.out.println("3) View booking history");
             System.out.println("4) Edit Profile");
+            System.out.println("5) Exit");
 
             System.out.println("Please select an operation (1-5):");
 
@@ -130,7 +133,7 @@ public class Main {
             }
 
             if (operationChoice == 1){
-                checkIn();
+              mybooking.makeABooking();
             }
             else if (operationChoice == 2){
                 myRoom.viewAvailableRooms(rooms);
