@@ -137,7 +137,7 @@ public class Booking {
                 String choice2 = input.next();
                 if(choice2.equals("yes")){
                     inputError = false;
-                    booking.setCheckInDate(answer);
+           //         booking.setCheckInDate(answer);
                 }
                 if(choice2.equals("no")){
                     inputError = true;
@@ -163,7 +163,7 @@ public class Booking {
                 String choice2 = input.next();
                 if(choice2.equals("yes")){
                     inputError = false;
-                    booking2.setCheckOutDate(answer);
+          //          booking2.setCheckOutDate(answer);
                 }
                 else if(choice2.equals("no")){
                     inputError = true;

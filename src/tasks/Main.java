@@ -12,15 +12,35 @@ import java.util.Scanner;
 
 public class Main {
 
-    private ArrayList<Room> rooms = new ArrayList<>();
-    private ArrayList<Customer> customers = new ArrayList<>();
+    private static ArrayList<Room> rooms = new ArrayList<>();
+    private static ArrayList<Customer> customers = new ArrayList<>();
+    Room myRoom = new Room(1,1,false);
+
+    Customer myCustomer = new Customer("12345678-1234","Jane Doe","Kristianstad",
+            "0723049586");
     public static void main(String[] args) {
         Main myApp = new Main();
 
-        Room myRoom = new Room(1,1,false);
 
-        Customer myCustomer = new Customer("12345678-1234","Jane Doe","Kristianstad",
+        Customer myCustomer1 = new Customer("12345678-4321","Anna Petersson","Elmetorspvägen",
+                "0723041234");
+        Customer myCustomer2 = new Customer("98765432-1234","Eric Svensson","Malmö",
                 "0723049586");
+        Customer myCustomer3 = new Customer("74654542-6464","John Watson","Faltvägen",
+                "0723041234");
+
+        customers.add(myCustomer1);
+        customers.add(myCustomer2);
+        customers.add(myCustomer3);
+
+        Room room1 = new Room(2,200,true);
+        Room room2 = new Room(3,250,true);
+        Room room3= new Room(1,150,false);
+
+        rooms.add(room1);
+        rooms.add(room2);
+        rooms.add(room3);
+
 
         EmployeeUser employeeUser = new EmployeeUser("mustafa","19981998");
         CustomerUser customerUser = new CustomerUser("kalle","12345678");
@@ -83,11 +103,53 @@ public class Main {
     }
 
     public void showCustomerMenu(){
-        System.out.println("--- MAIN MENU ---");
-        System.out.println("1) Make a booking");
-        System.out.println("2) Check availability");
-        System.out.println("3) View booking history");
-        System.out.println("4) Edit Profile");
+        Scanner input = new Scanner(System.in);
+        int operationChoice;
+        do {
+            System.out.println("--- MAIN MENU ---");
+            System.out.println("1) Make a booking");
+            System.out.println("2) Check availability");
+            System.out.println("3) View booking history");
+            System.out.println("4) Edit Profile");
+
+            System.out.println("Please select an operation (1-5):");
+
+            //Checks to see if input is integer
+            while (!input.hasNextInt()) {
+                input.next();
+                System.out.println("Please input a positive real number! (1-5)");
+            }
+            //Creates and initializes choice
+
+            operationChoice = input.nextInt();
+
+            //Checks if input is inside range(1-5).
+            while (operationChoice <=0 || operationChoice > 5){
+                System.out.println("Please input a positive real number! (1-5)");
+                operationChoice = input.nextInt();
+            }
+
+            if (operationChoice == 1){
+                checkIn();
+            }
+            else if (operationChoice == 2){
+                myRoom.viewAvailableRooms(rooms);
+            }
+            else if (operationChoice == 3){
+
+            }
+
+            else if (operationChoice == 4){
+                myCustomer.viewCustomers(customers);
+                myCustomer.editCustomer(customers);
+            }
+            else {
+                showEmployeeMenu();
+            }
+        }while (operationChoice != 5);
+
+
+
     }
 
     public void showBookingOptions(){
@@ -139,7 +201,7 @@ public class Main {
             if (choice == 1){
                 System.out.println("1) View arrived customers (view checked in customers)");
                 System.out.println("2) View all customers");
-                System.out.println("2) Return to customer menu");
+                System.out.println("3) Return to customer menu");
                 int arrived = input.nextInt();
                  input.nextLine();
                 if (arrived == 1){
@@ -164,13 +226,13 @@ public class Main {
 
             }
             else if (choice == 4){
-
+                    myCustomer.viewCustomers(customers);
                     myCustomer.removeCustomer(customers);
 
             }
 
             else  if (choice == 5){
-
+                myCustomer.viewCustomers(customers);
                 myCustomer.editCustomer(customers);
             }
             else {

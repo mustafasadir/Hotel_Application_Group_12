@@ -158,7 +158,7 @@ public class Customer {
         if (choice == 1 ){
             System.out.println("Please enter customer's social security number(yyyymmdd-xxxx)");
             String personNummer = input.nextLine();
-            input.nextLine();
+
             while (personNummer.equals("") || !personNummer.matches(ssnFormat) || personNummer.length() < 13 || personNummer.length() > 13){
                 System.out.println("Please enter valid social security number(yyyymmdd-xxxx))!");
                 personNummer = input.nextLine();
