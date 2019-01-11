@@ -31,8 +31,54 @@ public class Booking {
     {
 
     }
-    public void checkOutCustomer()
+    public void checkOutCustomer( ArrayList<Room> rooms)
     {
+        Scanner input = new Scanner(System.in);
+        boolean inputError;
+        int roomNbr = 0;
+        Room room;
+        String readRoomNbr;
+        System.out.println("Please enter which room you were staying : ");
+
+
+        do {
+            try {
+                do {
+                    try {
+                        readRoomNbr = input.nextLine();
+                        roomNbr = Integer.valueOf(readRoomNbr);
+                        inputError = false;
+                    }
+                    catch (NumberFormatException e){
+                        System.out.println("Please input a positive real number!");
+                        inputError = true;
+                    }
+                }while (inputError);
+
+                room = rooms.get(roomNbr-1);
+                //   System.out.println(room);
+                inputError = false;
+            }
+
+            catch (IndexOutOfBoundsException e){
+                System.out.println("Room does not exist, try another number");
+                inputError = true;
+            }
+
+        }while (inputError);
+
+        room = rooms.get(roomNbr-1);
+
+        while (room.getIsAvailable() == true) {
+            System.out.println("this room was already empty please enter the right room number!");
+            readRoomNbr = input.nextLine();
+            roomNbr = Integer.valueOf(readRoomNbr);
+            room = rooms.get(roomNbr-1);
+        }
+
+        room.setIsAvailable(true);
+        System.out.println("You succesfully checked out ! ");
+
 
     }
 
@@ -50,11 +96,11 @@ public class Booking {
         }
         setcheckInDate(checkInDate);
 
-
+/*
         for (Customer x:customers) {
             System.out.println(x);
         }
-
+*/
         System.out.println("Please type in your customer number ?");
         Customer  customer ;
         boolean inputError ;
@@ -64,7 +110,7 @@ public class Booking {
             try {
                 aCustomer = input.nextInt();
                 customer = customers.get(aCustomer-1);
-                System.out.println(customer);
+             //   System.out.println(customer);
                 inputError = false;
             }
             catch (InputMismatchException e){
@@ -83,11 +129,12 @@ public class Booking {
         System.out.println("Chosen customer: " + customer);
         System.out.println();
 
+
         int roomNbr = 0;
         Room room;
         String readRoomNbr;
         System.out.println("Which room do you want to choose (Input room number)");
-
+        input.nextLine();
         for (Room x:rooms) {
             System.out.println(x);
         }
@@ -107,7 +154,7 @@ public class Booking {
                 }while (inputError);
 
                 room = rooms.get(roomNbr-1);
-                System.out.println(room);
+             //   System.out.println(room);
                 inputError = false;
             }
 
@@ -128,6 +175,7 @@ public class Booking {
 
         return booking;
     }
+
 
     public void editBooking(ArrayList<Booking> bookings,ArrayList<Room> rooms)
     {
