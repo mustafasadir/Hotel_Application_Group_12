@@ -19,7 +19,7 @@ public class Customer {
 
 
     public Customer(String ssn , String name , String address ,String phoneNumber){
-        this.customerNumber = customerCount;
+        this.customerNumber = customerCount++;
         this.ssn = ssn ;
         this.name = name ;
         this.address = address ;

@@ -17,9 +17,10 @@ public class Main {
     private static ArrayList<Customer> customers = new ArrayList<>();
     Room myRoom = new Room(1,1,false);
 
+
     Customer myCustomer = new Customer("12345678-1234","Jane Doe","Kristianstad",
             "0723049586");
-    Booking mybooking = new Booking();
+    Booking mybooking = new Booking("1",myCustomer,myRoom);
     public static void main(String[] args) {
         Main myApp = new Main();
 
@@ -133,7 +134,7 @@ public class Main {
             }
 
             if (operationChoice == 1){
-              mybooking.makeABooking();
+              mybooking.makeABooking(customers,rooms);
             }
             else if (operationChoice == 2){
                 myRoom.viewAvailableRooms(rooms);
