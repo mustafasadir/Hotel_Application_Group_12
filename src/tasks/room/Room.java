@@ -15,7 +15,7 @@ public class Room {
     private ArrayList<Room> rooms = new ArrayList<>(); // all the created rooms
 
     public Room(int numberOfBeds, int pricePerNight, boolean hasBalcony ) {
-        this.roomNumber = roomNumberCount;
+        this.roomNumber = roomNumberCount++;
         this.numberOfBeds = numberOfBeds;
         this.pricePerNight = pricePerNight;
         this.hasBalcony = hasBalcony;

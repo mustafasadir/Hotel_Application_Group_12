@@ -2,28 +2,30 @@ package tasks.booking;
 
 
 import tasks.customer.Customer;
+import tasks.room.Room;
 
 import java.util.ArrayList;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Booking {
-    private int bookingId;
+    private static int bookingId;
     private int totalPrice;
     private String checkInDate;
-    private String checkOutDate;
+    private Customer customer;
+    private Room room ;
 
-    private ArrayList<Booking> bookings = new ArrayList<>();
 
-
-    public Booking()
+    public Booking(String checkInDate, Customer customer , Room room)
     {
+        bookingId++;
+        this.checkInDate = checkInDate;
+        this.customer = customer;
+        this.room = room ;
 
     }
     public void setcheckInDate(String checkInDate) { this.checkInDate = checkInDate; }
-
-    public void setcheckOutDate(String checkOutDate) { this.checkOutDate = checkOutDate;}
 
     public void searchBooking()
     {
@@ -33,26 +35,101 @@ public class Booking {
     {
 
     }
-    public void makeABooking() {
+
+    public Booking makeABooking(ArrayList<Customer> customers, ArrayList<Room> rooms) {
 
         Scanner input = new Scanner(System.in);
-        Customer myCustomer = new Customer("920404-1312","Alex","Solverborgsgatan 24A","0700224332");
-        System.out.println("Please input your ssn: ");
-        String ssn = input.nextLine();
+        System.out.println(" Please enter the check-in date (dd/mm/yyyy)");
+        checkInDate = input.nextLine();
+        String ssnFormat = "[0-9]*/[0-9]*/[0-9]*";
 
-        while (!ssn.equals(myCustomer.getSsn())){
-            System.out.println("Please input your ssn");
-            ssn = input.nextLine();
+        while (checkInDate.equals("") || !checkInDate.matches(ssnFormat) || checkInDate.length() < 10 || checkInDate.length() > 10){
+            System.out.println("Please enter the check-in date (Date has to be written in the right format (dd/mm/yyyy)!)");
+            checkInDate = input.nextLine();
+            input.nextLine();
+        }
+        setcheckInDate(checkInDate);
 
-            System.out.println("Available rooms are: "  );
 
+        for (Customer x:customers) {
+            System.out.println(x);
         }
 
+        System.out.println("Please type in your customer number ?");
+        Customer  customer ;
+        boolean inputError ;
+        int aCustomer  = 0;
 
+        do {
+            try {
+                aCustomer = input.nextInt();
+                customer = customers.get(aCustomer-1);
+                System.out.println(customer);
+                inputError = false;
+            }
+            catch (InputMismatchException e){
+                System.out.println("Please input a positive real number!");
+                input.nextLine();
+                inputError = true;
+            }
+            catch (IndexOutOfBoundsException e){
+                input.nextLine();
+                System.out.println("Customer does not exist, try another number");
+                inputError = true;
+            }
+        }while (inputError);
 
+        customer = customers.get(aCustomer-1);
+        System.out.println("Chosen customer: " + customer);
+        System.out.println();
 
+        int roomNbr = 0;
+        Room room;
+        String readRoomNbr;
+        System.out.println("Which room do you want to choose (Input room number)");
+
+        for (Room x:rooms) {
+            System.out.println(x);
+        }
+
+        do {
+            try {
+                do {
+                    try {
+                        readRoomNbr = input.nextLine();
+                        roomNbr = Integer.valueOf(readRoomNbr);
+                        inputError = false;
+                    }
+                    catch (NumberFormatException e){
+                        System.out.println("Please input a positive real number!");
+                        inputError = true;
+                    }
+                }while (inputError);
+
+                room = rooms.get(roomNbr-1);
+                System.out.println(room);
+                inputError = false;
+            }
+
+            catch (IndexOutOfBoundsException e){
+                System.out.println("Room does not exist, try another number");
+                inputError = true;
+            }
+
+        }while (inputError);
+
+        room = rooms.get(roomNbr-1);
+        room.setIsAvailable(false);
+        System.out.println("Chosen Room: " + room);
+
+        Booking booking = new Booking(checkInDate,customer ,room);
+        System.out.println();
+        System.out.println("Booking created");
+
+        return booking;
     }
-    public void editBooking(ArrayList<Booking> bookings)
+
+    public void editBooking(ArrayList<Booking> bookings,ArrayList<Room> rooms)
     {
         Scanner input = new Scanner(System.in);
         boolean inputError;
@@ -60,7 +137,6 @@ public class Booking {
         Booking booking;
         String readBookingNbr;
         System.out.println("Which bookings information do you want to change? (Input booking number)");
-
 
         do {
             try {
@@ -88,14 +164,14 @@ public class Booking {
 
         }while (inputError);
 
+        booking = bookings.get(bookingNbr-1);
 
-        bookings.get(bookingNbr-1);
         int choice = 0;
         String readChoice;
         Booking booking2;
         System.out.println("What would you like to change in this booking?");
         System.out.println("(1) Check-in date ");
-        System.out.println("(2) Check-out date ");
+        System.out.println("(2) Room number");
         //Checking first input number
 
         do {
@@ -112,7 +188,7 @@ public class Booking {
 
 
         // CHECKS IF INPUT IS INSIDE RANGE
-        while (choice <=0 || choice >  1) {
+        while (choice <=0 || choice >  2) {
             System.out.println("Please input a positive real number! (1-2)");
             do {
                 try {
@@ -125,55 +201,65 @@ public class Booking {
                 }
             } while (inputError);
         }
+
         //Check-in Date choice
         if (choice == 1){
             do {
-                System.out.println("Enter a new check-in date");
+                System.out.println(" Please enter the check-in date (dd/mm/yyyy)");
+                checkInDate = input.nextLine();
+                String ssnFormat = "[0-9]*/[0-9]*/[0-9]*";
 
-                String answer = input.next();
+                while (checkInDate.equals("") || !checkInDate.matches(ssnFormat) || checkInDate.length() < 10 || checkInDate.length() > 10){
+                    System.out.println("Please enter the check-in date (Date has to be written in the right format (dd/mm/yyyy)!)");
+                    checkInDate = input.nextLine();
+                    input.nextLine();
+                }
+                setcheckInDate(checkInDate);
+                inputError = false;
 
-                System.out.println("Confirm this new date? : " + answer);
-                System.out.println("Enter an answer (yes/no)");
-                String choice2 = input.next();
-                if(choice2.equals("yes")){
-                    inputError = false;
-           //         booking.setCheckInDate(answer);
-                }
-                if(choice2.equals("no")){
-                    inputError = true;
-                }
-                else{
-                    System.out.println("Error: Unknown answer");
-                    inputError = true;
-                }
+                System.out.println("Check in date has been changed!");
 
             }while(inputError);
-
-
-            //Check-out Date choice
         }
-        else if(choice == 2) {
+        else{
+            System.out.println("Please enter the room number: ");
+
+            for (Room x : rooms) {
+                System.out.println(x);
+            }
+
+            int roomNbr = 0;
+            Room room;
+            String readRoomNbr;
+
             do {
-                System.out.println("Enter a new check-out date");
+                try {
+                    do {
+                        try {
+                            readRoomNbr = input.nextLine();
+                            roomNbr = Integer.valueOf(readRoomNbr);
+                            inputError = false;
+                        }
+                        catch (NumberFormatException e){
+                            System.out.println("Please input a positive real number!");
+                            inputError = true;
+                        }
+                    }while (inputError);
 
-                String answer = input.next();
-
-                System.out.println("Confirm this new date? : " + answer);
-                System.out.println("Enter an answer (yes/no) ");
-                String choice2 = input.next();
-                if(choice2.equals("yes")){
+                    room = rooms.get(roomNbr-1);
+                    System.out.println(room);
                     inputError = false;
-          //          booking2.setCheckOutDate(answer);
                 }
-                else if(choice2.equals("no")){
-                    inputError = true;
-                }
-                else{
+
+                catch (IndexOutOfBoundsException e){
+                    System.out.println("Room does not exist, try another number");
                     inputError = true;
                 }
 
-            }while(inputError);
+            }while (inputError);
+
+            this.room = rooms.get(roomNbr-1);
+
         }
     }
-
 }
