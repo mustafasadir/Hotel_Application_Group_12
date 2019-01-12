@@ -32,9 +32,7 @@ public class Booking {
     public void setcheckInDate(String checkInDate) { this.checkInDate = checkInDate; }
 
 
-    public void viewBookingHistory(ArrayList<Customer> customers){
-
-        
+    public void viewBookingHistory(ArrayList<Customer> customers , ArrayList<Booking> bookings){
 
 
     }
