@@ -15,6 +15,7 @@ public class Main {
 
     private static ArrayList<Room> rooms = new ArrayList<>();
     private static ArrayList<Customer> customers = new ArrayList<>();
+    private static ArrayList<Booking> bookings = new ArrayList<>();
     Room myRoom = new Room(1,1,false);
 
 
@@ -127,7 +128,7 @@ public class Main {
                 showRoomOptions();
             }
             else if (operationChoice == 4){
-                mybooking.makeABooking(customers , rooms);
+                mybooking.makeABooking(customers , rooms , bookings);
             }
             else {
                 mybooking.checkOutCustomer(rooms);
@@ -167,13 +168,13 @@ public class Main {
             }
 
             if (operationChoice == 1){
-              mybooking.makeABooking(customers,rooms);
+              mybooking.makeABooking(customers,rooms , bookings);
             }
             else if (operationChoice == 2){
                 myRoom.viewAvailableRooms(rooms);
             }
             else if (operationChoice == 3){
-
+             mybooking.searchBooking(bookings);
             }
 
             else if (operationChoice == 4){
@@ -196,6 +197,7 @@ public class Main {
         System.out.println("3) Search booking");
         System.out.println("4) Edit booking");
         System.out.println("5) Exit booking menu");
+
 
 
     }

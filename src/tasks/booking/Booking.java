@@ -1,6 +1,7 @@
 package tasks.booking;
 
 
+import tasks.ReadWriteFile;
 import tasks.customer.Customer;
 import tasks.room.Room;
 
@@ -10,30 +11,69 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Booking {
-    private static int bookingId;
+    private  static int bookingId ;
+    private int bookingNumber ;
     private int totalPrice;
     private String checkInDate;
     private Customer customer;
     private Room room ;
-
+    Scanner input = new Scanner(System.in);
+    ReadWriteFile rw = new ReadWriteFile();
 
     public Booking(String checkInDate, Customer customer , Room room)
     {
-        bookingId++;
+        this.bookingNumber= bookingId++;
         this.checkInDate = checkInDate;
         this.customer = customer;
         this.room = room ;
 
+
     }
     public void setcheckInDate(String checkInDate) { this.checkInDate = checkInDate; }
 
-    public void searchBooking()
+
+    public void viewBookingHistory(ArrayList<Customer> customers){
+
+        
+
+
+    }
+
+    public void searchBooking(ArrayList<Booking> bookings)
     {
+
+        System.out.println("Please enter your booking number: ");
+        boolean inputError ;
+        Booking booking  ;
+        int bookingNbr = 0 ;
+
+
+        do {
+            try {
+                bookingNbr = input.nextInt();
+                booking = bookings.get(bookingNbr-1);
+                System.out.println(booking.toString());
+                inputError = false;
+            }
+            catch (InputMismatchException e){
+                System.out.println("Please input a positive real number!");
+                input.nextLine();
+                inputError = true;
+            }
+            catch (IndexOutOfBoundsException e){
+                input.nextLine();
+                System.out.println("Booking does not exist, try another number");
+                inputError = true;
+            }
+        }while (inputError);
+
+        booking = bookings.get(bookingNbr-1);
+
 
     }
     public void checkOutCustomer( ArrayList<Room> rooms)
     {
-        Scanner input = new Scanner(System.in);
+
         boolean inputError;
         int roomNbr = 0;
         Room room;
@@ -82,7 +122,7 @@ public class Booking {
 
     }
 
-    public Booking makeABooking(ArrayList<Customer> customers, ArrayList<Room> rooms) {
+    public Booking makeABooking(ArrayList<Customer> customers, ArrayList<Room> rooms , ArrayList<Booking> bookings) {
 
         Scanner input = new Scanner(System.in);
         System.out.println(" Please enter the check-in date (dd/mm/yyyy)");
@@ -164,12 +204,13 @@ public class Booking {
             }
 
         }while (inputError);
-
         room = rooms.get(roomNbr-1);
         room.setIsAvailable(false);
         System.out.println("Chosen Room: " + room);
 
         Booking booking = new Booking(checkInDate,customer ,room);
+        bookings.add(booking);
+        rw.writeObject(booking);
         System.out.println();
         System.out.println("Booking created");
 
@@ -310,4 +351,11 @@ public class Booking {
 
         }
     }
+    @Override
+    public String toString() {
+        return "Booking number: "+bookingNumber+ " Check-in Date: "+checkInDate+"\n" +customer+
+                "\n" +room;
+    }
+
+
 }
