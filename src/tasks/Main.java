@@ -17,13 +17,14 @@ public class Main {
     private static ArrayList<Customer> customers = new ArrayList<>();
     private static ArrayList<Booking> bookings = new ArrayList<>();
     Room myRoom = new Room(1,1,false);
+   private static Login login = new Login("haha","haha");
+   private static Main myApp = new Main();
 
 
     Customer myCustomer = new Customer("12345678-1234","Jane Doe","Kristianstad",
             "0723049586");
     Booking mybooking = new Booking("1",myCustomer,myRoom,1);
     public static void main(String[] args) {
-        Main myApp = new Main();
 
 
         Customer myCustomer1 = new Customer("12345678-4321","Anna Petersson","Elmetorspvägen",
@@ -32,23 +33,52 @@ public class Main {
                 "0723049586");
         Customer myCustomer3 = new Customer("74654542-6464","John Watson","Faltvägen",
                 "0723041234");
-
+        Customer myCustomer4 = new Customer("12345678-4321","Anna Petersson","Elmetorspvägen",
+                "0723041234");
+        Customer myCustomer5 = new Customer("98765432-1234","Eric Svensson","Malmö",
+                "0723049586");
+        Customer myCustomer6 = new Customer("74654542-6464","John Watson","Faltvägen",
+                "0723041234");
+        Customer myCustomer7 = new Customer("12345678-4321","Anna Petersson","Elmetorspvägen",
+                "0723041234");
+        Customer myCustomer8 = new Customer("98765432-1234","Eric Svensson","Malmö",
+                "0723049586");
+        Customer myCustomer9 = new Customer("74654542-6464","John Watson","Faltvägen",
+                "0723041234");
         customers.add(myCustomer1);
         customers.add(myCustomer2);
         customers.add(myCustomer3);
+        customers.add(myCustomer4);
+        customers.add(myCustomer5);
+        customers.add(myCustomer6);
+        customers.add(myCustomer7);
+        customers.add(myCustomer8);
+        customers.add(myCustomer9);
 
         Room room1 = new Room(2,200,true);
         Room room2 = new Room(3,250,true);
-        Room room3= new Room(1,150,false);
+        Room room3 = new Room(1,150,false);
+        Room room4 = new Room(4,400,true);
+        Room room5 = new Room(5,550,true);
+        Room room6 = new Room(1,150,false);
+        Room room7 = new Room(2,200,false);
+        Room room8 = new Room(1,250,true);
+        Room room9 = new Room(1,150,false);
 
         rooms.add(room1);
         rooms.add(room2);
         rooms.add(room3);
+        rooms.add(room4);
+        rooms.add(room5);
+        rooms.add(room6);
+        rooms.add(room7);
+        rooms.add(room8);
+        rooms.add(room9);
 
 
         EmployeeUser employeeUser = new EmployeeUser("mustafa","19981998");
         CustomerUser customerUser = new CustomerUser("kalle","12345678");
-        Login login = new Login("haha","haha");
+
 
         boolean menuChoice = login.showLoginForm();
 
@@ -63,45 +93,60 @@ public class Main {
 
     public void showEmployeeMenu(){
         Scanner input = new Scanner(System.in);
-        System.out.println("---- MAIN MENU ----");
-        System.out.println("1) Booking options");
-        System.out.println("2) Customer options");
-        System.out.println("3) Room options");
-        System.out.println("4) Check-in");
-        System.out.println("5) Check-out");
-
-        System.out.println("Please select an operation (1-5):");
-
-        //Checks to see if input is integer
-        while (!input.hasNextInt()) {
-            input.next();
-            System.out.println("Please input a positive real number! (1-5)");
-        }
-        //Creates and initializes choice
         int operationChoice;
-        operationChoice = input.nextInt();
+        do {
+            System.out.println("---- MAIN MENU ----");
+            System.out.println("1) Booking options");
+            System.out.println("2) Customer options");
+            System.out.println("3) Room options");
+            System.out.println("4) Check-in");
+            System.out.println("5) Check-out");
+            System.out.println("6) Exit");
 
-        //Checks if input is inside range(1-5).
-        while (operationChoice <=0 || operationChoice > 5){
-            System.out.println("Please input a positive real number! (1-5)");
+            System.out.println("Please select an operation (1-6):");
+
+            //Checks to see if input is integer
+            while (!input.hasNextInt()) {
+                input.next();
+                System.out.println("Please input a positive real number! (1-6)");
+            }
+            //Creates and initializes choice
+
             operationChoice = input.nextInt();
-        }
 
-        if (operationChoice == 1){
-            showBookingOptions();
-        }
-        else if (operationChoice == 2){
-            showCustomerOptions();
-        }
-        else if (operationChoice == 3){
-            showRoomOptions();
-        }
-        else if (operationChoice == 4){
-            checkIn();
-        }
-        else {
-            checkOut();
-        }
+            //Checks if input is inside range(1-5).
+            while (operationChoice <=0 || operationChoice > 6){
+                System.out.println("Please input a positive real number! (1-6)");
+                operationChoice = input.nextInt();
+            }
+
+            if (operationChoice == 1){
+                showBookingOptions();
+            }
+            else if (operationChoice == 2){
+                showCustomerOptions();
+            }
+            else if (operationChoice == 3){
+                showRoomOptions();
+            }
+            else if (operationChoice == 4){
+                mybooking.makeABooking(customers , rooms , bookings);
+            }
+            else if (operationChoice == 5){
+                mybooking.checkOutCustomer(rooms);
+            }
+            else {
+                boolean menuChoice = login.showLoginForm();
+
+                if (menuChoice){
+                    myApp.showEmployeeMenu();
+                }
+                else{
+                    myApp.showCustomerMenu();
+                }
+            }
+        }while (operationChoice != 6);
+
 
 
     }
@@ -112,12 +157,77 @@ public class Main {
         do {
             System.out.println("--- MAIN MENU ---");
             System.out.println("1) Make a booking");
-            System.out.println("2) Check availability");
-            System.out.println("3) View booking history");
-            System.out.println("4) Edit Profile");
-            System.out.println("5) Exit");
+            System.out.println("2) Check  out");
+            System.out.println("3) Check availability");
+            System.out.println("4) View booking history");
+            System.out.println("5) Edit Profile");
+            System.out.println("6) Exit");
 
-            System.out.println("Please select an operation (1-5):");
+            System.out.println("Please select an operation (1-6):");
+
+            //Checks to see if input is integer
+            while (!input.hasNextInt()) {
+                input.next();
+                System.out.println("Please input a positive real number! (1-6)");
+            }
+            //Creates and initializes choice
+
+            operationChoice = input.nextInt();
+
+            //Checks if input is inside range(1-5).
+            while (operationChoice <=0 || operationChoice > 6){
+                System.out.println("Please input a positive real number! (1-6)");
+                operationChoice = input.nextInt();
+            }
+
+            if (operationChoice == 1){
+                mybooking.makeABooking(customers,rooms);
+
+            }
+            else if (operationChoice == 2){
+                mybooking.checkOutCustomer(rooms);
+            }
+            else if (operationChoice == 3){
+             myRoom.viewRooms(rooms);
+            }
+
+            else if (operationChoice == 4){
+                mybooking.viewBookingHistory(customers,bookings);
+            }
+            else if (operationChoice == 5){
+                myCustomer.viewCustomers(customers);
+                myCustomer.editCustomer(customers);
+            }
+            else {
+                boolean menuChoice = login.showLoginForm();
+
+                if (menuChoice){
+                    myApp.showEmployeeMenu();
+                }
+                else{
+                    myApp.showCustomerMenu();
+                }
+
+            }
+        }while (operationChoice != 6);
+
+
+
+    }
+
+    public void showBookingOptions(){
+
+        Scanner input = new Scanner(System.in);
+        int operationChoice;
+        do {
+        System.out.println("---- BOOKING OPTIONS ----");
+        System.out.println("1) Create booking");
+        System.out.println("2) View bookings");
+        System.out.println("3) Search booking");
+        System.out.println("4) Edit booking");
+        System.out.println("5) Exit booking menu");
+        System.out.println();
+        System.out.println("Please select an operation (1-5):");
 
             //Checks to see if input is integer
             while (!input.hasNextInt()) {
@@ -135,49 +245,20 @@ public class Main {
             }
 
             if (operationChoice == 1){
-                mybooking.makeABooking(customers,rooms);
+                Booking booking;
+                booking = mybooking.makeABooking(customers,rooms);
+                bookings.add(booking);
             }
             else if (operationChoice == 2){
-                myRoom.viewAvailableRooms(rooms);
+                mybooking.viewBookings(bookings);
             }
             else if (operationChoice == 3){
 
             }
-
             else if (operationChoice == 4){
-                myCustomer.viewCustomers(customers);
-                myCustomer.editCustomer(customers);
+                mybooking.editBooking(bookings,rooms);
             }
-            else {
-                showEmployeeMenu();
-            }
-        }while (operationChoice != 5);
 
-
-
-    }
-
-    public void showBookingOptions(){
-        Scanner input = new Scanner(System.in);
-        int operationChoice;
-        do {
-            System.out.println("---- BOOKING OPTIONS ----");
-            System.out.println("1) Create booking");
-            System.out.println("2) View bookings");
-            System.out.println("3) Search booking");
-            System.out.println("4) Edit booking");
-            System.out.println("5) Exit booking menu");
-            System.out.println();
-            System.out.println("Please select an operation (1-5):");
-
-            //Checks to see if input is integer
-            while (!input.hasNextInt()) {
-                input.next();
-                System.out.println("Please input a positive real number! (1-5)");
-            }
-            //Creates and initializes choice
-
-            operationChoice = input.nextInt();
 
             //Checks if input is inside range(1-5).
             while (operationChoice <=0 || operationChoice > 5){

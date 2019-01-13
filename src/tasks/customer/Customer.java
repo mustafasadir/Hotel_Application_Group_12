@@ -247,7 +247,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer no: "+customerNumber+ " Customer's ssn: " +ssn+ " Name: "+name+ " Address: "+address+ " Phone Number: "+phoneNumber;
+        return "Customer information: "+ "\nCustomer no: "+customerNumber+ "\nCustomer's ssn: " +ssn+ "\nName: "+name+ "\nAddress: "+address+ "\nPhone Number: "+phoneNumber;
     }
 
 }
