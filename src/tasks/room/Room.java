@@ -43,6 +43,9 @@ public class Room {
         return isAvailable;
     }
 
+    public int getPricePerNight() {
+        return pricePerNight;
+    }
 
     public ArrayList<Room> getRooms() {
         return rooms;
