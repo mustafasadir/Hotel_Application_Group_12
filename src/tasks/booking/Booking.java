@@ -1,6 +1,7 @@
 package tasks.booking;
 
 
+import tasks.ReadWriteFile;
 import tasks.customer.Customer;
 import tasks.room.Room;
 
@@ -16,6 +17,7 @@ public class Booking {
     private int totalDays;
     private String checkInDate;
     private Customer customer;
+
     private Room room;
 
 
@@ -27,18 +29,15 @@ public class Booking {
         this.totalDays = totalDays;
         int price = room.getPricePerNight();
         this.totalPrice = totalDays * price;
+
+    Scanner input = new Scanner(System.in);
+    
     }
 
     public void setcheckInDate(String checkInDate) { this.checkInDate = checkInDate; }
 
-    public void searchBooking() {
 
-    }
-
-    public void checkOutCustomer() {
-
-    }
-
+    
     public int getTotalDays() {
         return totalDays;
     }
@@ -49,9 +48,97 @@ public class Booking {
 
     public void setTotalPrice(int days, int pricePerNight) {
         this.totalPrice = days * pricePerNight;
+
+    public void viewBookingHistory(ArrayList<Customer> customers , ArrayList<Booking> bookings){
+
+
     }
 
-    public Booking makeABooking(ArrayList<Customer> customers, ArrayList<Room> rooms) {
+    public void searchBooking(ArrayList<Booking> bookings)
+    {
+
+        System.out.println("Please enter your booking number: ");
+        boolean inputError ;
+        Booking booking  ;
+        int bookingNbr = 0 ;
+
+
+        do {
+            try {
+                bookingNbr = input.nextInt();
+                booking = bookings.get(bookingNbr-1);
+                System.out.println(booking.toString());
+                inputError = false;
+            }
+            catch (InputMismatchException e){
+                System.out.println("Please input a positive real number!");
+                input.nextLine();
+                inputError = true;
+            }
+            catch (IndexOutOfBoundsException e){
+                input.nextLine();
+                System.out.println("Booking does not exist, try another number");
+                inputError = true;
+            }
+        }while (inputError);
+
+        booking = bookings.get(bookingNbr-1);
+
+
+    }
+    public void checkOutCustomer( ArrayList<Room> rooms)
+    {
+
+        boolean inputError;
+        int roomNbr = 0;
+        Room room;
+        String readRoomNbr;
+        System.out.println("Please enter which room you were staying : ");
+
+
+        do {
+            try {
+                do {
+                    try {
+                        readRoomNbr = input.nextLine();
+                        roomNbr = Integer.valueOf(readRoomNbr);
+                        inputError = false;
+                    }
+                    catch (NumberFormatException e){
+                        System.out.println("Please input a positive real number!");
+                        inputError = true;
+                    }
+                }while (inputError);
+
+                room = rooms.get(roomNbr-1);
+                //   System.out.println(room);
+                inputError = false;
+            }
+
+            catch (IndexOutOfBoundsException e){
+                System.out.println("Room does not exist, try another number");
+                inputError = true;
+            }
+
+        }while (inputError);
+
+        room = rooms.get(roomNbr-1);
+
+        while (room.getIsAvailable() == true) {
+            System.out.println("this room was already empty please enter the right room number!");
+            readRoomNbr = input.nextLine();
+            roomNbr = Integer.valueOf(readRoomNbr);
+            room = rooms.get(roomNbr-1);
+        }
+
+        room.setIsAvailable(true);
+        System.out.println("You succesfully checked out ! ");
+
+
+
+    }
+
+    public Booking makeABooking(ArrayList<Customer> customers, ArrayList<Room> rooms , ArrayList<Booking> bookings) {
 
         Scanner input = new Scanner(System.in);
         boolean inputError;
@@ -69,9 +156,8 @@ public class Booking {
             input.nextLine();
         }
 
-        for (Customer x:customers) {
-            System.out.println(x);
-        }
+        setcheckInDate(checkInDate);
+
 
         System.out.println("Please type in your customer number ?");
         Customer  customer;
@@ -79,9 +165,9 @@ public class Booking {
 
         do {
             try {
-                customerNbr = input.nextInt();
-                customer = customers.get(customerNbr-1);
-                System.out.println(customer);
+
+                aCustomer = input.nextInt();
+                customer = customers.get(aCustomer-1);
                 inputError = false;
             }
             catch (InputMismatchException e){
@@ -100,11 +186,12 @@ public class Booking {
         System.out.println("Chosen customer: " + customer);
         System.out.println();
 
+
         int roomNbr = 0;
         Room room;
         String readRoomNbr;
         System.out.println("Which room do you want to choose (Input room number)");
-
+        input.nextLine();
         for (Room x:rooms) {
             System.out.println(x);
         }
@@ -123,7 +210,7 @@ public class Booking {
                     }
                 }while (inputError);
                 room = rooms.get(roomNbr-1);
-                System.out.println(room);
+             //   System.out.println(room);
                 inputError = false;
             }
             catch (IndexOutOfBoundsException e){
@@ -132,9 +219,9 @@ public class Booking {
             }
 
         }while (inputError);
-
         room = rooms.get(roomNbr-1);
         System.out.println("Chosen Room: " + room);
+
 
         // CHOOSE DAYS
         System.out.println("Please input the amount of days for the accommodation?");
@@ -204,6 +291,9 @@ public class Booking {
     }
 
     public void editBooking(ArrayList<Booking> bookings,ArrayList<Room> rooms) {
+
+
+   
         Scanner input = new Scanner(System.in);
         boolean inputError;
         int bookingNbr = 0;
@@ -347,6 +437,7 @@ public class Booking {
         }
     }
 
+
     @Override
     public String toString() {
         return  "Booking ID: " + bookingId + "\n" +
@@ -357,4 +448,5 @@ public class Booking {
                 "Total price: " + totalPrice + "$" + "\n" +
                 "------------------------------------------------" + "\n";
     }
+
 }
